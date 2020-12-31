@@ -1,0 +1,35 @@
+Create a Dockerfile and install xdebug using this code
+
+
+RUN pecl install xdebug
+RUN docker-php-ext-enable xdebug
+RUN touch /var/log/xdebug_remote.log
+RUN chmod 777 /var/log/xdebug_remote.log
+COPY config/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug-custom.ini
+EXPOSE 10000
+
+
+Create a docker-php-ext-xdebug.ini inside config folder and paste this code in this file
+
+;zend_extension = xdebug
+;xdebug.remote_enable=on
+;xdebug.remote_autostart=true
+;xdebug.remote_handler=dbgp
+;xdebug.remote_mode=req
+;xdebug.remote_port=10000
+;xdebug.idekey=VSCODE
+;xdebug.remote_connect_back=Off
+; CHeck ipconfig and pass that IP here.. OR check if remote_Connect_back is working.
+;xdebug.remote_host=docker.for.mac.localhost
+;xdebug.remote_connect_back=1
+zend_extension = /usr/local/lib/php/extensions/no-debug-non-zts-20190902/xdebug.so
+xdebug.remote_enable=1
+xdebug.client_port=10000
+xdebug.client_host=docker.for.mac.localhost
+xdebug.remote_autostart=1
+xdebug.remote_handler = dbgp
+xdebug.remote_mode = req
+xdebug.remote_connect_back=1
+xdebug.idekey=VSCODE
+xdebug.remote_log=/var/log/xdebug_remote.log
+xdebug.mode=debug

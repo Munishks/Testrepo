@@ -1,0 +1,17 @@
+#!/bin/bash
+
+PWD=`pwd`
+globalEmail=`git config --global --get user.email`
+workEmail="munish.kumar@srijan.net"
+perEmail="munish.kumar@srijan.net"
+
+if [[ $PWD != "*demo*" && $globalEmail != $perEmail ]];
+then
+        echo "Commit email and global git config email differ"
+        echo "Global commit email: "$globalEmail""
+        echo "Committing email expected: $perEmail"
+        exit 1
+else
+        echo ""
+        exit 0
+fi
